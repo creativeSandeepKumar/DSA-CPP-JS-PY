@@ -6,6 +6,7 @@ void counting();
 void EvenOdd();
 void NCR();
 void Power();
+void IsPrime();
 
 int main()
 {
@@ -22,6 +23,8 @@ int main()
     cout << "4. Check nCr" << endl;
     cout << endl;
     cout << "5. Calculate Power" << endl;
+    cout << endl;
+    cout << "6. Check Prime or Not" << endl;
     cout << endl;
     cin >> num_of_item;
     cout << endl;
@@ -42,6 +45,9 @@ int main()
         break;
     case 5:
         Power();
+        break;
+    case 6:
+        IsPrime();
         break;
 
     default:
@@ -165,4 +171,22 @@ void Power(){
 
 
    cout << "The anser is : " << ans  << endl;
+}
+
+
+void IsPrime(){
+    int n;
+    cout << "Enter the number :" << endl;
+    cin >> n;
+    cout << endl;
+
+    for(int i = 2; i < n; i++){
+        if(n % i == 0){
+            cout << " Not a prime Number";
+            break;
+        } else {
+            cout << " Is a prime Number";
+            break;
+        }
+    }
 }

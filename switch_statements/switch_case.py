@@ -70,6 +70,28 @@ def Power():
         answer *= num1
     print("The value of Power is: ", answer)
 
+
+def IsPrime():
+    num = int(input("Enter the number: "))
+
+    if num <= 1:
+        print("Not a prime")
+        return
+
+    checkprime = True
+
+    for i in range(2, int(num**0.5) + 1):
+        if(num % i == 0):
+            checkprime = False
+            break
+    
+    if checkprime:
+        print("Is a prime")
+    else: 
+        print("Not a prime")
+
+
+
     
 
 
@@ -83,6 +105,7 @@ def main():
     print("3. Check Even or Odd")
     print("4. Check nCr")
     print("5. Check Power")
+    print("6. Check Prime")
 
     num_of_item = int(input("Enter the number: "))
     print()
@@ -93,6 +116,7 @@ def main():
         3: EvenOrOdd,
         4: nCr,
         5: Power,
+        6: IsPrime,
     }
 
     items.get(num_of_item, invalid_item)()

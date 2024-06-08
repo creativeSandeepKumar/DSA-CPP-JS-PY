@@ -84,6 +84,31 @@ function factorial(num){
     return fact;
 }
 
+
+function Isprime(){
+    rl.question("Enter the number: \n", (num) => {
+        num = parseInt(num);
+        console.log();
+
+        let checkprime = true
+        for(let i = 2; i < num; i++ ){
+            if(num % i == 0){
+                console.log("check here", i)
+                checkprime = false;
+                break;
+            }
+        }
+
+        if(checkprime){
+            console.log("Is a prime Number");
+            } else {
+            console.log("Not a prime Number");
+        }
+        rl.close();
+    })
+}
+
+
 function nCr(){
     rl.question("Enter the number n: \n", (n) => {
         rl.question("Enter the number r: \n", (r) => {
@@ -124,6 +149,7 @@ function main(){
     console.log("\n3. Even or Odd\n");
     console.log("\n4. Check nCr\n");
     console.log("\n5. Check Power\n");
+    console.log("\n6. Check Prime Number\n");
 
     rl.question("", (num_of_item)=> { 
         num_of_item = parseInt(num_of_item);
@@ -144,6 +170,9 @@ function main(){
                 break;
             case 5:
                 Power();
+                break;
+            case 6:
+                Isprime();
                 break;
         
             default:
