@@ -2,12 +2,18 @@
 #include <vector>
 #include <utility>
 #include <math.h>
+#include <algorithm>
 using namespace std;
 
 void item1();
 void item2();
 void firstAndLastPosition();
 void peakInMountainArr();
+void checkPivot();
+void findPosition();
+void squareRoot();
+void aggressiveCows();
+void allocateBook();
 
 int main() {
     int num_of_item;
@@ -21,6 +27,16 @@ int main() {
     cout << "3. firstAndLastPosition" << endl;
     cout << endl;
     cout << "4. peakInMountainArr" << endl;
+    cout << endl;
+    cout << "5. Check Pivot Element" << endl;
+    cout << endl;
+    cout << "6. Search In Roated Array" << endl;
+    cout << endl;
+    cout << "7. Get Square root" << endl;
+    cout << endl;
+    cout << "8. Aggressive Cows" << endl;
+    cout << endl;
+    cout << "9. Allocate Book" << endl;
     cout << endl;
     cin >> num_of_item;
     cout << endl;
@@ -38,6 +54,20 @@ int main() {
         break;
     case 4:
         peakInMountainArr();
+        break;
+    case 5:
+        checkPivot();
+        break;
+    case 6:
+        findPosition();
+        break;
+    case 7:
+        squareRoot();
+        break;
+    case 8:
+        aggressiveCows();
+    case 9:
+        allocateBook();
         break;
     
     default:
@@ -182,4 +212,206 @@ void peakInMountainArr(){
     vector<int> arr = {0, 2, 8, 5, 4, 3, 1};
     int pivot = find_pivot(arr);
     cout << "Peak element in this arr is at" << pivot << endl;
+}
+
+int getPivot(int arr[], int n){
+    int s = 0;
+    int e = n - 1;
+    int mid = s + (e - s)/2;
+
+    while( s < e){
+        if(arr[mid] >= arr[0]){
+            s = mid + 1;
+        } else {
+            e = mid;
+        }
+         mid = s + (e - s)/2;
+    }
+    return s;
+}
+
+void checkPivot(){
+    int arr[5] = {1, 3, 8, 10, 17};
+    cout << "Pivot is " << getPivot(arr, 5) << endl;
+}
+
+int rotatedBinarySearch(int arr[], int s,int e, int key ){
+int start = s;
+    int end = e;
+
+    int mid = start + (end-start)/2;
+
+    while(start <= end){
+        if(arr[mid] == key){
+            return mid;
+        }
+
+        if(key > arr[mid]){
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+
+        mid = start + (end-start)/2;
+    }
+
+    return -1;
+}
+
+void findPosition(){
+    int arr[6] = {2, 4, 6, 8, 10, 12};
+    int pivot = getPivot(arr, 6);
+    int k = 6;
+    int ans;
+    if(k >= arr[pivot] && k <= arr[6-1]){
+        ans =  rotatedBinarySearch(arr, pivot, 5, k);
+    } else {
+        ans = rotatedBinarySearch(arr, 0, pivot - 1, k);
+    }
+    cout << "Check binary search " << ans << endl;
+}
+
+long long int sqrtInteger(int n){
+    int s = 0;
+    int e = n;
+
+    long long int mid = s + (e - s)/2;
+    long long int ans = -1;
+
+    while(s <= e){
+        long long int square = mid * mid;
+
+        if(square == n) {
+            return mid;
+        }
+
+        if(square < n){
+            ans = mid;
+            s = mid + 1;
+        } else {
+            e = mid - 1;
+        }
+
+        mid = s + (e - s)/2;
+    }
+
+    return ans;
+}
+
+double morePrecision(int n, int precision, int tempSol){
+    double factor = 1;
+    double ans = tempSol;
+
+    for(int  i = 0; i < precision; i++){
+        factor = factor/10;
+
+        for(double j = ans; j * j < n; j = j + factor){
+            ans = j;
+        }
+    }
+
+    return ans;
+}
+
+void squareRoot(){
+    int n;
+    cout << " Enter the number " << endl;
+    cin >> n;
+
+    int tempSol = sqrtInteger(n);
+    cout << " Answer is " << morePrecision(n, 3, tempSol) << endl;
+
+}
+
+bool isPossible(vector<int> &stalls, int k, int mid, int n){
+    int cowCount = 1;
+    int lastPos = stalls[0];
+
+    for(int i = 0; i< n; i++){
+        if(stalls[i] - lastPos >= mid){
+            cowCount++;
+            if(cowCount == k){
+                return true;
+            }
+            lastPos = stalls[i];
+        }
+    }
+
+    return false;
+}
+
+
+void aggressiveCows(){
+    vector<int> stalls = {1, 2, 3, 4, 8, 9};
+
+    int k = 3;
+    sort(stalls.begin(), stalls.end());
+    int s = 0;
+    int n = stalls.size();
+    int e = stalls[n - 1];
+    int ans = -1;
+    int mid = s + (e - s)/2;
+
+    while(s <= e){
+        if(isPossible(stalls, k, mid, n)){
+            ans = mid;
+            s = mid + 1;
+        } else {
+            e = mid + 1;
+        }
+        mid = s + (e - s)/2;
+    }
+
+    cout << " The largest minimum distance is: " << ans << endl;
+}
+
+bool is_possible(vector<int> arr, int n, int m, int mid){
+    int studentCount = 1;
+    int pageSum = 0;
+
+    for(int i = 0; i < n; i++){
+        if(pageSum + arr[i] <= mid){
+            pageSum += arr[i];
+        } else {
+            studentCount++;
+            if(studentCount > m || arr[i] > mid){
+                return false;
+            }
+            pageSum = arr[i];
+        }
+        if(studentCount > m){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+void allocateBook(){
+    vector<int> arr = {12, 34, 67, 90};
+    int s = 0;
+    int sum = 0;
+    int m = 2;
+    int n = arr.size();
+
+    for(int i = 0; i < n; i++){
+        sum += arr[i];
+    }
+
+    int e = sum;
+    int ans = -1;
+    int mid = s + (e - s)/2;
+
+    while(s <= e){
+        if(is_possible(arr, n, m, mid)){
+            ans = mid;
+            e = mid - 1;
+        } else {
+            s = mid + 1;
+        }
+        mid = s + (e - s)/2;
+    }
+
+    cout << "The minimum number of pages that can allocated is " << ans << endl;
 }
