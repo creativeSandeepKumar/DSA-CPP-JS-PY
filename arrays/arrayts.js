@@ -1,8 +1,7 @@
-const readline = require("readline");
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+var readline = require("readline");
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
 });
 function reverseArr(arr) {
     var _a;
@@ -51,29 +50,25 @@ function findSumArr() {
         carry = Math.floor(sum / 10);
         sum = sum % 10;
         ans.push(sum);
+        j--;
     }
     console.log('Before reverse', ans);
     var result = reverseArr(ans);
     console.log("Sum of array is: ", result.join());
 }
-
-function rotateArr(){
-    let nums = [1, 2, 3, 4, 5, 6,7];
-    let k = 3;
-    let n = nums.length;
-    let temp = [];
-
-    for(let i = 0; i < n; i++){
-        temp[(i + k)% n] = nums[i];
+function rotateArr() {
+    var nums = [1, 2, 3, 4, 5, 6, 7];
+    var k = 3;
+    var n = nums.length;
+    var temp = [];
+    for (var i = 0; i < n; i++) {
+        temp[(i + k) % n] = nums[i];
     }
-
-    for(let i = 0; i < n; i++){
+    for (var i = 0; i < n; i++) {
         nums[i] = temp[i];
     }
-
-    console.log("Rotated Array is", nums.join(" "));
+    console.log("Rotated Array", nums.join(" "));
 }
-
 function main() {
     console.log("\nSelect the items which you want to print from below list: \n");
     console.log();

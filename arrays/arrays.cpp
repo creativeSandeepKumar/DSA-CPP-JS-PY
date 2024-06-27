@@ -2,6 +2,7 @@
 #include <math.h>
 #include <climits>
 #include <algorithm> 
+#include <vector> 
 using namespace std;
 
 
@@ -9,6 +10,8 @@ void item1();
 void item2();
 void item3();
 void item4();
+void findArraySum1();
+void rotateArr();
 
 int main()
 {
@@ -23,6 +26,12 @@ int main()
     cout << "3. Max Min Search" << endl;
     cout << endl;
     cout << "4. Reverse Array" << endl;
+    cout << endl;
+    cout << endl;
+    cout << "5. Find Sum of Array" << endl;
+    cout << endl;
+    cout << endl;
+    cout << "6. Rotate Array" << endl;
     cout << endl;
     cin >> num_of_item;
     cout << endl;
@@ -40,6 +49,12 @@ int main()
         break;
     case 4:
         item4();
+        break;
+    case 5:
+        findArraySum1();
+        break;
+    case 6:
+        rotateArr();
         break;
 
     default:
@@ -186,4 +201,102 @@ void item4(){
 
     printArray(arr, 6);
     printArray(arr, 5);
+}
+
+vector<int> reverseArr(vector<int> v){
+    int s = 0;
+    int e = v.size() - 1;
+
+    while( s < e){
+        swap(v[s++], v[e--]);
+    }
+
+    return v;
+}
+
+void findArraySum1(){
+    vector<int> a = {9, 9, 9};
+    vector<int> b = {1};
+
+    int i = a.size() - 1;
+    int j = b.size() - 1;
+
+    vector<int> ans;
+    int carry = 0;
+
+    while(i >= 0 && j >= 0){
+        int val1 = a[i];
+        int val2 = b[j];
+        int sum= val1 + val2 + carry;
+
+        carry = sum/10;
+        sum = sum % 10;
+        ans.push_back(sum);
+        i--;
+        j--;
+    }
+
+    while( i>=0 ){
+        int sum = a[i] + carry;
+        carry = sum/10;
+        sum = sum % 10;
+        ans.push_back(sum);
+        i--;
+    }
+
+    while( j>=0 ){
+        int sum = b[j] + carry;
+        carry = sum/10;
+        sum = sum % 10;
+        ans.push_back(sum);
+        i--;
+    }
+
+    while(carry != 0){
+        int sum = carry;
+        carry = sum / 10;
+        sum = sum % 10;
+        ans.push_back(sum);
+    }
+
+    vector<int> result = reverseArr(ans);
+
+    cout << "Sum of the array is: ";
+    for(int num: result){
+        cout << num << " ";
+    }
+    cout << endl;
+
+}
+
+
+void printVectorArr(const vector<int>& nums){
+    for(int num: nums){
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
+void rotateArr(){
+    vector <int> nums = {1,2,3, 4, 5, 6, 7};
+    int k = 3;
+    int n = nums.size();
+
+   cout << "Original Arr: ",
+    printVectorArr(nums);
+
+    vector<int> temp (n);
+
+    for(int i = 0; i< n; i++){
+        temp[(i + k) % n] = nums[i];
+    }
+
+
+    for(int i = 0; i< n; i++){
+        nums[i] = temp[i];
+    }
+    
+    cout << "Rotated Arr: ",
+    printVectorArr(nums);
+
 }
