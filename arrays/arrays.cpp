@@ -12,6 +12,7 @@ void item3();
 void item4();
 void findArraySum1();
 void rotateArr();
+void checkSortedRotatedArr();
 
 int main()
 {
@@ -32,6 +33,9 @@ int main()
     cout << endl;
     cout << endl;
     cout << "6. Rotate Array" << endl;
+    cout << endl;
+    cout << endl;
+    cout << "7. Check sorted Rotated Arrar" << endl;
     cout << endl;
     cin >> num_of_item;
     cout << endl;
@@ -55,6 +59,9 @@ int main()
         break;
     case 6:
         rotateArr();
+        break;
+    case 7:
+        checkSortedRotatedArr();
         break;
 
     default:
@@ -298,5 +305,28 @@ void rotateArr(){
     
     cout << "Rotated Arr: ",
     printVectorArr(nums);
+
+}
+
+void checkSortedRotatedArr(){
+    vector<int> nums = {3, 4, 5, 1, 2};
+
+    int cnt = 0;
+
+    for(int i = 1; i < nums.size(); i++){
+        if(nums[i ] < nums[i - 1])
+            cnt++;
+    }
+
+    if(nums[nums.size()-1] > nums[0]){
+        cnt++;
+    }
+    bool checkbool = cnt <= 1;
+
+    if(checkbool){
+        cout << "The array is sorted and rotated." << endl;
+    } else {
+        cout << "The array is not sorted and rotated." << endl;
+    }
 
 }

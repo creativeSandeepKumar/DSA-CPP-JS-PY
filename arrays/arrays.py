@@ -134,6 +134,22 @@ def rotateArr():
     
     print("Rotated Arr is", nums)
 
+def checkSortedRotatedArr():
+    nums = [4, 5, 6, 7, 1, 2, 3]
+    cnt = 0
+
+    for i in range(1, len(nums)):
+        if nums[i] < nums[i - 1]:
+            cnt += 1
+    if nums[len(nums) - 1] > nums[0]:
+        cnt +=1
+    checkbook = cnt <= 1
+
+    if checkbook:
+        print("Array is sorted and rotated")
+    else:
+        print("Array is not sorted and rotated")
+
 
 def invalid_item():
      print("\nInvalid Number, Please select a number from the above given list :)\n")
@@ -145,6 +161,7 @@ def main():
     print("3. Find Reverse")
     print("4. Find Sum of Array")
     print("5. Rotated Array")
+    print("6. Check sorted and Rotated Array")
 
     num_of_item = int(input("Enter the number: "))
     print()
@@ -155,6 +172,7 @@ def main():
         3: item3,
         4: findSumArr,
         5: rotateArr,
+        6: checkSortedRotatedArr,
     }
 
     items.get(num_of_item, invalid_item)()

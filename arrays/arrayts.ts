@@ -5,7 +5,7 @@ const rl = readline.createInterface({
     output: process.stdout,
 })
 
-function reverseArr(arr: number[]): number[]{
+function reverseArr(arr:number[]): number[]{
   let s = 0;
   let e = arr.length - 1;
 
@@ -93,12 +93,34 @@ function rotateArr():void{
 
 }
 
+function checkSortedRotatedArr(): void {
+  let nums: number[] = [3, 4, 5, 1, 2];
+  let cnt: number = 0;
+
+  for(let i: number = 1; i < nums.length; i++){
+    if(nums[i] < nums[i - 1])
+      cnt++;
+  }
+  if(nums[nums.length - 1] > nums[0]){
+    cnt++;
+  }
+
+  let checkbool:boolean = cnt <= 1;
+
+  if(checkbool){
+    console.log("The array is sorted and rotated.");
+  } else {
+    console.log("The array is not sorted and rotated.");
+  }
+}
+
 
 function main(): void {
     console.log("\nSelect the items which you want to print from below list: \n");
     console.log();
     console.log("\n1. Find Sum of Array\n");
     console.log("\n2. Rotate Array\n");
+    console.log("\n3. Check Sorted ans Rotated Array\n");
   
     rl.question("", (num_of_item) => {
     let selectedItem: number = parseInt(num_of_item);
@@ -111,6 +133,10 @@ function main(): void {
           break;
         case 2:
           rotateArr();
+          rl.close();
+          break;
+        case 3:
+          checkSortedRotatedArr();
           rl.close();
           break;
   

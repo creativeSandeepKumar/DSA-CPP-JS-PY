@@ -69,11 +69,30 @@ function rotateArr() {
     }
     console.log("Rotated Array", nums.join(" "));
 }
+function checkSortedRotatedArr() {
+    var nums = [3, 4, 5, 1, 2];
+    var cnt = 0;
+    for (var i = 1; i < nums.length; i++) {
+        if (nums[i] < nums[i - 1])
+            cnt++;
+    }
+    if (nums[nums.length - 1] > nums[0]) {
+        cnt++;
+    }
+    var checkbool = cnt <= 1;
+    if (checkbool) {
+        console.log("The array is sorted and rotated.");
+    }
+    else {
+        console.log("The array is not sorted and rotated.");
+    }
+}
 function main() {
     console.log("\nSelect the items which you want to print from below list: \n");
     console.log();
     console.log("\n1. Find Sum of Array\n");
     console.log("\n2. Rotate Array\n");
+    console.log("\n3. Check Sorted ans Rotated Array\n");
     rl.question("", function (num_of_item) {
         var selectedItem = parseInt(num_of_item);
         console.log();
@@ -84,6 +103,10 @@ function main() {
                 break;
             case 2:
                 rotateArr();
+                rl.close();
+                break;
+            case 3:
+                checkSortedRotatedArr();
                 rl.close();
                 break;
             default:
